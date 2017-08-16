@@ -1,0 +1,341 @@
+
+
+/* .modal-dialog {
+  width: 380px;
+  margin-top: 15%;
+} */
+
+#signed-in-as a{
+  /* text-decoration: none; */
+  color: #fff !important;
+}
+
+.login-container {
+  padding: 30px;
+  max-width: 350px;
+  width: 100% !important;
+  background-color: #F7F7F7;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  /* font-family: roboto; */
+}
+
+.login-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  /* font-family: roboto; */
+}
+
+.login-container input[type=submit] {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.login-container input[type=text], input[type=password] {
+/*   height: 44px;
+  font-size: 16px; */
+  width: 100%;
+  margin-bottom: 10px;
+
+  /* border-radius: 2px; */
+  padding: 0 8px;
+/*   
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+ */
+}
+
+/* 
+.loginmodal-container input[type=text]:hover, input[type=password]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+ */
+
+.loginmodal {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  height: 36px;
+  padding: 0 8px;
+border-radius: 3px;
+/* -webkit-user-select: none;
+  user-select: none; */
+}
+
+/*
+.loginmodal-submit {
+  /* border: 1px solid #3079ed; */
+  /*
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+  background-color: #4d90fe;
+  padding: 17px 0px;
+  font-family: roboto;
+  font-size: 14px;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); *//*
+} */
+
+.loginmodal-submit:hover {
+  /* border: 1px solid #2f5bb7; */
+  border: 0px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  background-color: #357ae8;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
+
+.login-container a {
+  text-decoration: none;
+  color: #464646;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.7;
+  transition: opacity ease 0.5s;
+}
+
+.login-container a:hover {
+  color: #2564cd;
+}
+
+.login-help{
+  font-size: 12px;
+}
+
+
+.user-profile {
+  width: 100%;
+  background-color: #cecece;
+}
+
+
+/* Search -- Start */
+
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+ .input-group-btn .btn-group {
+    display: flex !important;
+}
+
+.btn-group .btn#dropdown-btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+  /*
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+} */
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* .form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+ */
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
+
+/* Search -- End */
+
+/* Add new hotel */
+.addnew-modal-container {
+  padding: 30px;
+  max-width: 350px;
+  width: 100% !important;
+  background-color: #F7F7F7;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+
+  /* font-family: roboto; */
+}
+
+.modal-xl {
+  width: 75%;
+}
+
+
+ div.bootstrap-select {
+  max-width: 200px !important;
+} 
+
+
+/* Width classes for automated form generation - start */
+
+.w-100 {width: 100px!important;} .w-150 {width: 150px!important;} .w-200 {width: 200px!important;} .w-250 {width: 250px!important;}
+.w-300 {width: 300px!important;} .w-350 {width: 350px!important;} .w-400 {width: 400px!important;} .w-450 {width: 450px!important;}
+.w-500 {width: 500px!important;}
+
+/* Width classes for automated form generation - end */
+
+
+/*** PANEL DEFAULT ***/
+
+.panel-default>.panel-heading {
+  background-color: #ffffff;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li > a,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+}
+.with-nav-tabs.panel-default .nav-tabs > .open > a,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+	background-color: #ddd;
+	border-color: transparent;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+	color: #555;
+	background-color: #fff;
+	border-color: #ddd;
+	border-bottom-color: transparent;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #777;   
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #ddd;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-color: #555;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.panel-default>.panel-heading {
+  border: none;
+}
+/************************/
+
+/* Gallery test */
+
+.thumb-gallery {	
+	-webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}	
+
+.thumb-gallery img{ width: 100%; padding: 2px 0;}
+
+@media (max-width: 768px) {
+	.thumb-gallery {
+    -webkit-column-count: 1; /* Chrome, Safari, Opera */
+       -moz-column-count: 1; /* Firefox */
+            column-count: 1;
+  }
+}
+
+
+ul.gal {         
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+}
+ul.gal li {     
+    list-style:none;
+    margin-bottom:25px;           
+}
+ul.gal li img {
+    cursor: pointer;
+}
+
+.img-modal {width:600px;}
+.thumbnail {margin-bottom:6px;}
+/* Gallery test */
+
+
+/* input#img_uploader {
+  position:absolute;
+  z-index:2;
+  top:0;
+  left:0;
+  filter: alpha(opacity=0);
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity:0;
+  background-color:transparent;
+  color:transparent;
+} */
+
+
+/* Fix for modal scroll bar issue */
+
+/* 
+.modal, .modal-open {
+  overflow: auto !important;
+}
+ */
+
+ 
+ div.room-detail {
+    border-radius: 5px;
+    border: 1px solid #d6d6d6;
+    padding: 20px; 
+}
+
+.error {
+  color: #f23131;
+}
+
+#hotel_details_grid {
+  margin-top: 10px;
+}
+
+/* input[id^="chkbx"] {
+  height: 10px;
+} */
