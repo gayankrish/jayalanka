@@ -118,6 +118,33 @@ $('#btnImgUpload').on('click', function(){
 });
 
 
+//Image uploader
+
+function uploadFile(record_id){
+  var input = document.getElementById("file");
+  files = input.files;
+  if(file != undefined){
+    formData= new FormData();
+
+      formData.append("images", files);
+      formData.append("id", record_id);
+      $.ajax({
+        url: "image_upload.php",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            alert('success');
+        }
+      });
+
+  }else{
+    alert('Input something!');
+  }
+}
+
+
 /**
  * Handle image upload and preview - end
  */

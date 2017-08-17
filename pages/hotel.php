@@ -38,39 +38,6 @@
               }
 
             break;
-
-/*           case 'chkbx-location':
-
-            //$_POST[$key] = 
-
-            $objCountry = new Country;
-            $countries = array();
-            if(strpos($value, ',') !== FALSE) {
-              $city = trim(substr($value, 0, strpos($value, ',')-1));
-              $country = trim(substr($value, strpos($value, ',')+1));
-
-              
-              $cond = "`country_name` LIKE '%".$country."%'";
-              $countries = $objCountry->getCountries($cond);
-              $cond = "`country_name` LIKE '%".$city."%'";
-              $countries .= $objCountry->getCountries($cond);
-
-            } else {
-              $cond = "`country_name` LIKE '%".$value."%'";
-              $countries = $objCountry->getCountries($cond);
-            }
-
-            if (!empty($countries)) {
-              $tmp_s = '';
-              foreach ($countries as $country) {
-                $tmp_s .= $country['id'].',';
-              }
-            }
-
-
-            $search_string = substr($search_string, 0, strlen($search_string)-3);
-
-            break; */
           
           default:
             # code...
@@ -83,9 +50,10 @@
       
     }
     $search_string = substr($search_string, 0, strlen($search_string)-3);   
-  } elseif ($_GET) {
+  }/*  elseif ($_GET) {
     $search_query = Url::getParam('search-box');
-  }
+    echo '$_GET';
+  } */
 
   $hotels = array();
   if(!empty($search_string)) {
@@ -94,10 +62,43 @@
   //echo $hotels
   //var_dump($hotels);
 
+  /* Image upload handler */
+
+/*   $errors = array();
+  $img_count = 0;
+  if (isset($_FILES)) {
+    
+    $upload_dir = HOTEL_IMG_PATH.'/'.$topic_tmp['img_folder'].'/';
+
+    foreach ($_FILES['img_files']['tmp_name'] as $key => $img) {
+      $filename = $_FILES['img_files']['name'][$key];
+      $filetype = $_FILES['img_files']['type'][$key];
+      $filesize = $_FILES['img_files']['size'][$key];
+      $file_tmp = $_FILES['img_files']['tmp_name'][$key];
+
+
+      if (is_dir($upload_dir)) {
+        if ($filetype == 'image/jpeg' || $filetype == 'image/png' || $filetype == 'image/bmp') {
+          $img_count++;
+        } else {
+          $errors[] = 'File: '.$filename.' is not a valid image file.';
+          unset($_FILES['img_files']['name'][$key]);
+          unset($_FILES['img_files']['type'][$key]);
+          unset($_FILES['img_files']['size'][$key]);
+          unset($_FILES['img_files']['tmp_name'][$key]);
+          unset($_FILES['img_files']['errors'][$key]);
+       }
+      }
+    }
+  } */
+
 ?>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-8 col-md-offset-1 pull-left">
+    <span>
+      <h1 class="pageheader">Hotels</h1><button class="btn btn-success btn-xs pull-right" id="add-new-hotel" title="Add new hotel" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-plus"></i> Add New Hotel</button>
+    </span><hr>
     <form action="" method="post" class="form-horizontal" role="form">
       <div class="input-group" id="adv-search">
       
@@ -148,7 +149,7 @@
     </div> <!-- .col-md-8 .col-md-offset-2 -->
 
     <div class="col-md-2 text-left">
-      <button class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-plus"></i> Add New</button>
+      
     </div> <!-- .col-md-2 .text-left -->
     <br/><br />
 
@@ -171,9 +172,9 @@
             }
 
             $actions = '<td class="text-center">                        
-                          <button class="btn btn-xs btn-default" title="Show Details" name="%record_id%"><i class="glyphicon glyphicon-list-alt"></i></button>
-                          <button class="btn btn-xs btn-default" title="Edit" name="%record_id%"><i class="glyphicon glyphicon-edit"></i></button>
-                          <button class="btn btn-xs btn-danger" title="Delete" name="%record_id%"><i class="glyphicon glyphicon-trash"></i></button>
+                          <button class="btn btn-xs btn-default" id="show-hotel-details" title="Show Details" name="%record_id%"><i class="glyphicon glyphicon-list-alt"></i></button>
+                          <button class="btn btn-xs btn-default" id="edit-hotel-details" title="Edit" name="%record_id%"><i class="glyphicon glyphicon-edit"></i></button>
+                          <button class="btn btn-xs btn-danger" id="delete-hotel" title="Delete" name="%record_id%"><i class="glyphicon glyphicon-trash"></i></button>
                         </td>';
             if (!empty($hotels)) {
               $objCountry = new Country();

@@ -43,9 +43,21 @@
     defined("IMG_ROOT")
       || define("IMG_ROOT", ROOT_PATH.DS."images");
 
-    // product images path
-    defined("FORUM_IMG_PATH")
-      || define("FORUM_IMG_PATH", IMG_ROOT.DS."posts".DS."forum");
+    // hotel images path
+    defined("HOTEL_IMG_PATH")
+      || define("HOTEL_IMG_PATH", IMG_ROOT.DS."hotels");
+
+    // vehicle images path
+    defined("VEHICLE_IMG_PATH")
+    || define("VEHICLE_IMG_PATH", IMG_ROOT.DS."vehicles");
+    
+    // restaurant images path
+    defined("REST_IMG_PATH")
+    || define("REST_IMG_PATH", IMG_ROOT.DS."restaurants");    
+
+    // restaurant images path
+    defined("SHOP_IMG_PATH")
+    || define("SHOP_IMG_PATH", IMG_ROOT.DS."shops");        
 
     // javascripts path
     defined("JS_PATH")
@@ -63,6 +75,10 @@
         realpath(ROOT_PATH.DS.INCLUDES_DIR),
         realpath(ROOT_PATH.DS.TEMPLATES_DIR),
         realpath(ROOT_PATH.DS.JS_PATH),
+        realpath(ROOT_PATH.DS.HOTEL_IMG_PATH),
+        realpath(ROOT_PATH.DS.VEHICLE_IMG_PATH),
+        realpath(ROOT_PATH.DS.REST_IMG_PATH),
+        realpath(ROOT_PATH.DS.SHOP_IMG_PATH),
         get_include_path()
       )));
 

@@ -69,6 +69,11 @@
           }
         }
 
+        $objCountry = new Country;
+        $country = $objCountry->getCountryById($params['country_id']);
+
+        $params['location'] = (!empty($country)) ? $params['city'].",".$country['country_name']:"";
+
 
 
            $this->db->prepareInsert($params);
