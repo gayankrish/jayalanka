@@ -519,3 +519,81 @@ function uploadFiles(record_id, cat){
 /**
  * Hotel form validation end
  */
+
+ $(document).on('click', '#show-hotel-details', function () {
+
+  var url = 'modules/test.php';
+   
+  console.log("View hotel details:");
+  var hotel_id = $(this)[0].name;
+
+  data = {'modal_title':"Hotel:",
+          'main_table':'hotel',
+          'mode':'view',
+          'record_id':hotel_id,
+          };
+/*   data =[];
+  data['modal_title'] = "Hotel:";
+  data['main_table'] = 'hotel';
+  data['mode'] = 'view';
+  data['record_id'] = hotel_id;
+  data['image_upload_required'] = false;
+  data['map_required'] = false;
+  data['close_button_required'] = true;
+  data['edit_button_required'] = true;
+  data['save_button_required'] = true; */
+
+  //console.log($.serialize(data));
+
+  //console.log(JSON.stringify(data));
+
+/*   var modal_title = "Hotel:";
+  //$tab1_title
+  //$tab2_title
+  var main_table = 'hotel';
+  var mode = 'view';
+  var record_id = hotel_id;
+  var image_upload_required = false;
+  var map_required = false;
+  $close_button_required = true;
+  $edit_button_required = false;
+  $save_button_required = true; */
+
+  $.ajax ({
+    type: "GET",
+    url: url,
+   dataType: "json",
+    data:  data,
+    success: function (res) {
+      console.log("Success");
+      console.log(res);
+    },
+    error: function (err) {
+      console.log("Error");
+      console.log(err);
+    }
+  });
+
+/*   $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#hotel_info").serialize(),
+    success: function(data)
+    {
+      uploadFiles(data, 'hotel');
+      console.log('inside success');
+      console.log(data);
+      $('div[id^=save_status]').addClass('alert-success');
+      $('div[id^=save_status]').html('<strong>New hotel saved successfully!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);      
+
+    },
+    error: function (data) {
+      $('div[id^=save_status]').addClass('alert-danger');
+      $('div[id^=save_status]').html('<strong>Save failed!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);
+      console.log(data)
+    }
+      });  */
+
+ });

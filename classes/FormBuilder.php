@@ -69,6 +69,10 @@
                     $html = '';
                     
                         if(!empty($table)) {
+                            
+                            $objHotel = new Hotel();
+                            $hotel = $objHotel->getHotelById();
+
                             $json_default_groups = $this->getColumnProperties($table, 1);
             
                             foreach ($json_default_groups as $json_default_group) {

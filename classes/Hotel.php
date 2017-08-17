@@ -131,6 +131,13 @@
       }
 
     }
+
+    public function getHotelById($id) {
+      if (!empty($id)) {
+        $sql = "SELECT * FROM `{$this->_table}` WHERE `id`={$id}";
+        return $this->db->fetchOne($sql);
+      }      
+    }
       
 
     public function getHotelTypeById($typeid=null) {
