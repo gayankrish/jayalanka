@@ -16,8 +16,7 @@
 
         public function createBasicInfo($table, $mode = null, $record = null) {
 
-            $arr_obj = ['hotel'=>'Hotel', 'guide'=>'Guide'];
-            
+                       
 
                 switch ($mode) {
                     case 'new':

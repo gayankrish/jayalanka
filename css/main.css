@@ -343,3 +343,10 @@ h1.pageheader {
 #add-new-hotel {
   margin-bottom: 10px;
 }
+
+/* Paginator select formatting - start */
+:not(span).paginate {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* Paginator select formatting - end */
