@@ -31,7 +31,7 @@
       mysqli_set_charset($this->_conndb,"utf8");
     }
 
-    public function close($func) {
+    public function close($func = null) {
       if (!mysqli_close($this->_conndb)) {
         die("Closing connection failed: Called by function - ".$func);
       }
@@ -72,7 +72,7 @@
       } else {
         
         $this->_affected_rows = mysqli_affected_rows($this->_conndb);
-        $this->close('displayQuery');
+        //$this->close('displayQuery');
       }
 
     }
@@ -124,9 +124,12 @@
         //$this->connect();
         error_log($sql);
         if ($this->query($sql)) {
-          $this->_id = $this->lastId();
+          //$this->_id = $this->lastId();
           //$this->close();
-          return true;
+          //return true;
+
+          return mysqli_insert_id($this->_conndb);
+          $this->close();
         }
         return false;
       }

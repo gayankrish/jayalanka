@@ -10,20 +10,7 @@ $objHotel = new Hotel();
         $hotel = $_POST;
 
         $result = $objHotel->addHotel($hotel);
-/*         $username = $_POST['username'];
-        $pass = $_POST['password']; */
 
-
-
-/*         if($objUser->isUser($username, $pass)) {
-          Login::doLogin($objUser->_id);
-          echo 1;
-        } else {
-          echo 0;
-        }
-    } else {
-      echo 'Username: '.$_POST['username']." : Pass: ".$_POST['password'];
-    } */
-    var_dump($result);
+        echo $result;
     }
 ?>

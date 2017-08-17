@@ -1,13 +1,13 @@
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container">
-    <div class="text-center">
-<!-- <footer class="text-center" id="footer"> -->
+    <div class="text-center"> -->
+<footer class="text-center" id="footer">
   &copy; 2017 - <?= $business['name'].'<br/>'?>
                 <?= $business['address1'].', '.$business['address2'].', '.$business['city'].', '.$country['country_name'] ?>
-<!--  </footer> -->
+ </footer>
+<!-- </div>
 </div>
-</div>
-</nav>
+</nav> -->
 
 <script src="js/main.js" type="text/javascript"></script>
   <script>

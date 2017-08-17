@@ -8,29 +8,11 @@
   if (Login::isLogged(Login::$_login_front)) {
     $objMenu = new Menu();
     $parentmenuitems = $objMenu->getParents();
-    //$menulinks = $objMenu->getLinks();
-
-
-
     $objUser = new User();
   }
 
   $objForm = new Form();
   $objValid = new Validation($objForm);
-
-// Login Form
-/* 
-if ($objForm->isPost('login')) {
-  if ($objUser->isUser($objForm->getPost('username'), $objForm->getPost('password'))) {
-
-    Login::doLogin($objUser->_id);
-  } else {
-    $objValid ->addToErrors('login');
-  }
-}
- */
-
-// Logout
 
 if ($objForm->isPost('btn-logout')) {
   Login::logout(Login::$_login_front);

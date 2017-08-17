@@ -21,8 +21,10 @@ class Paginator{
 	protected $querystring;
 	protected $return;
 	protected $get_ipp;
+	private $site_url = 'http://localhost/jayalanka';
 
 	public function __construct($total=0,$mid_range=7,$ipp_array=array(10,25,50,100,"All")) {
+
 		$this->total_items = (int) $total;
 		if($this->total_items <= 0) exit("Unable to paginate: Invalid total value (must be an integer > 0)");
 		$this->mid_range = (int) $mid_range; // midrange must be an odd int >= 1
@@ -52,7 +54,7 @@ class Paginator{
 		}
 		if($this->num_pages > 10) {
 			$this->return = ($this->current_page > 1 And $this->total_items >= 10) ?
-													"<a class=\"paginate btn\" href=\"/?pg=".($this->current_page-1)."&ipp=$this->items_per_page$this->querystring\">Previous</a> " :
+													"<a class=\"paginate btn\" href=".($this->site_url)."/?pg=".($this->current_page-1)."&ipp=$this->items_per_page$this->querystring\">Previous</a> " :
 													"<span class=\"inactive\" href=\"#\">Previous</span> ";
 			$this->start_range = $this->current_page - floor($this->mid_range/2);
 			$this->end_range = $this->current_page + floor($this->mid_range/2);
@@ -71,24 +73,25 @@ class Paginator{
 				if($i==1 Or $i==$this->num_pages Or in_array($i,$this->range))
 					$this->return .= ($i == $this->current_page And $this->items_per_page != "All") ?
 															"<a title=\"Go to page $i of $this->num_pages\" class=\"current\" href=\"#\">$i</a> \n" :
-															"<a class=\"paginate\" title=\"Go to page $i of $this->num_pages\" href=\"$_SERVER[PHP_SELF]?page=$i&ipp=$this->items_per_page$this->querystring\">$i</a> \n";
+															"<a class=\"paginate\" title=\"Go to page $i of $this->num_pages\" href=".($this->site_url)."/?page=$i&ipp=$this->items_per_page$this->querystring\">$i</a> \n";
 				if($this->range[$this->mid_range-1] < $this->num_pages-1 And $i == $this->range[$this->mid_range-1])
 					$this->return .= " ... ";
 			}
 			$this->return .= (($this->current_page < $this->num_pages And $this->total_items >= 10) And ($this->items_per_page != "All") And $this->current_page > 0) ?
-													"<a class=\"paginate\" href=\"?/pg=".($this->current_page+1)."&ipp=$this->items_per_page$this->querystring\">Next</a>\n" :
+													"<a class=\"paginate\" href=".($this->site_url)."/?pg=".($this->current_page+1)."&ipp=$this->items_per_page$this->querystring\">Next</a>\n" :
 													"<span class=\"inactive\" href=\"#\">Next</span>\n";
 			$this->return .= ($this->items_per_page == "All") ?
 													"<a class=\"current  btn btn-default btn-xs disabled\" style=\"margin-left:10px\" href=\"#\">All</a> \n" :
-													"<a class=\"paginate btn btn-default btn-xs\" style=\"margin-left:10px\" href=\"/?pg=1&ipp=All$this->querystring\">All</a> \n";
+													"<a class=\"paginate btn btn-default btn-xs\" style=\"margin-left:10px\" href=".($this->site_url)."/?pg=1&ipp=All$this->querystring\">All</a> \n";
 		} else	{
 			for($i=1;$i<=$this->num_pages;$i++) {
-				$this->return .= ($i == $this->current_page) ? "<a class=\"current btn btn-default btn-xs disabled\" href=\"#\">$i</a> ":"<a class=\"paginate btn btn-default btn-xs\" href=\"/?pg=$i&ipp=$this->items_per_page$this->querystring\">$i</a> ";
+				$this->return .= ($i == $this->current_page) ? "<a class=\"current btn btn-default btn-xs disabled\" href=\"#\">$i</a> ":"<a class=\"paginate btn btn-default btn-xs\" href=".($this->site_url)."/?pg=".$i."&ipp=".$this->items_per_page.$this->querystring.">".$i."</a> ";
 			}
-			$this->return .= "<a class=\"paginate btn btn-default btn-xs\" href=\"/?pg=1&ipp=All$this->querystring\">All</a> \n";
+			$this->return .= "<a class=\"paginate btn btn-default btn-xs\" href=".($this->site_url)."/?pg=1&ipp=All".$this->querystring.">All</a> \n";
 		}
 		$this->return = str_replace("&","&amp;",$this->return);
-		$this->limit_start = ($this->current_page <= 0) ? 0:($this->current_page-1) * $this->items_per_page;
+//echo '$this->items_per_page: '.$this->items_per_page;
+		$this->limit_start = ($this->current_page <= 0) ? 0:($this->current_page-1) * (int) $this->items_per_page;
 		if($this->current_page <= 0) $this->items_per_page = 0;
 		$this->limit_end = ($this->items_per_page == "All") ? (int) $this->total_items: (int) $this->items_per_page;
 	}
@@ -98,7 +101,7 @@ class Paginator{
 		$items = NULL;
 		natsort($this->ipp_array); // This sorts the drop down menu options array in numeric order (with 'all' last after the default value is picked up from the first slot
 		foreach($this->ipp_array as $ipp_opt) $items .= ($ipp_opt == $this->items_per_page) ? "<option selected value=\"$ipp_opt\">$ipp_opt</option>\n":"<option value=\"$ipp_opt\">$ipp_opt</option>\n";
-		return "<span class=\"paginate\">Items per page:</span><select class=\"paginate\" onchange=\"window.location='/?pg=1&amp;ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select>\n";
+		return "<span class=\"paginate\">Items per page:</span><select class=\"paginate\" onchange=\"window.location='$this->site_url/?pg=1&amp;ipp='+this[this.selectedIndex].value+'$this->querystring';return false\">$items</select>\n";
 	}
 
 
@@ -107,7 +110,7 @@ class Paginator{
 		for($i=1;$i<=$this->num_pages;$i++) {
 			$option .= ($i==$this->current_page) ? "<option value=\"$i\" selected>$i</option>\n":"<option value=\"$i\">$i</option>\n";
 		}
-		return "<span class=\"paginate\">Page:</span><select class=\"paginate\" onchange=\"window.location='/?pg='+this[this.selectedIndex].value+'&amp;ipp=$this->items_per_page$this->querystring';return false\">$option</select>\n";
+		return "<span class=\"paginate\">Page:</span><select class=\"paginate\" onchange=\"window.location='$this->site_url/?pg='+this[this.selectedIndex].value+'&amp;ipp=$this->items_per_page$this->querystring';return false\">$option</select>\n";
 	}
 
 

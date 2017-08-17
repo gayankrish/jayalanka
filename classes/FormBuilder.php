@@ -14,7 +14,83 @@
 
         }
 
-        public function createBasicInfo($table) {
+        public function createBasicInfo($table, $mode = null, $record = null) {
+
+            $arr_obj = ['hotel'=>'Hotel', 'guide'=>'Guide'];
+            
+
+                switch ($mode) {
+                    case 'new':
+
+                        $html = '';
+                    
+                              if(!empty($table)) {
+                                  $json_default_groups = $this->getColumnProperties($table, 1);
+                  
+                                  foreach ($json_default_groups as $json_default_group) {
+                                      $arr_control_groups = json_decode($json_default_group['column_properties'], true);
+                                       foreach ($arr_control_groups as $arr_control_group) {
+                                          $html .= '<div class="form-group col-md-6 col-sm-6">';
+                                              $html .= $this->getHtmlTag($arr_control_group);
+                                          $html .= '</div>';
+                                      } 
+                  
+                                  }
+                              }
+                              return $html;    
+
+                        break;
+
+                    case 'edit':
+
+                    
+
+                    $html = '';
+                    
+                        if(!empty($table)) {
+                            $json_default_groups = $this->getColumnProperties($table, 1);
+            
+                            foreach ($json_default_groups as $json_default_group) {
+                                $arr_control_groups = json_decode($json_default_group['column_properties'], true);
+                                 foreach ($arr_control_groups as $arr_control_group) {
+                                    $html .= '<div class="form-group col-md-6 col-sm-6">';
+                                        $html .= $this->getHtmlTag($arr_control_group);
+                                    $html .= '</div>';
+                                } 
+            
+                            }
+                        }
+                        return $html;
+
+                        # code...
+                        break;
+
+                    case 'view':
+
+                    $html = '';
+                    
+                        if(!empty($table)) {
+                            $json_default_groups = $this->getColumnProperties($table, 1);
+            
+                            foreach ($json_default_groups as $json_default_group) {
+                                $arr_control_groups = json_decode($json_default_group['column_properties'], true);
+                                 foreach ($arr_control_groups as $arr_control_group) {
+                                    $html .= '<div class="form-group col-md-6 col-sm-6">';
+                                        $html .= $this->getHtmlTag($arr_control_group);
+                                    $html .= '</div>';
+                                } 
+            
+                            }
+                        }
+                        return $html;                    
+                    # code...
+                        break;                    
+
+                    default:
+                        # code...
+                        break;
+                }
+
 
             $html = '';
   
@@ -80,7 +156,7 @@
         }  
 
 
-        private function getHtmlTag($arr_data) {
+        private function getHtmlTag($arr_data, $arr_values = array(), $enabled = true) {
 
             if (!empty($arr_data)) {
                 $input_id = $arr_data['col_name'];
@@ -111,7 +187,8 @@
                                             (($width_class!='0')?'class="form-control input-sm '.$width_class.'"':'class="form-control input-sm" ').
                                             /* (($placeholder!="")?'placeholder="'.$placeholder.'" ':''). */
                                             (($input_id!="")?'id="'.$input_id.'" name="'.$input_id.'" ':'').
-                                            (($required!='0')?'required':'').
+                                            (($required!='0')?'required ':'').
+                                            ((!$enabled)? "disabled":"").
                                             '>';
                             } else {
                                 $element = 'getHtmlTag - else <br>';
@@ -125,7 +202,7 @@
                                         $element .= '<input type="hidden" name="rank">';
                                     $element .= '</div>';
                                     $element .= '<div class="form-group">';
-                                        $element .= '&nbsp;&nbsp;<b><span class="rating-counter" style="float:right;"></span></b>';
+                                        $element .= '&nbsp;&nbsp;<b><span class="rating-counter" style="float:right;" name='.((!$enabled)? "disabled":"").'></span></b>';
                                     $element .= '</div>';
                                 $element .= '</div>';
                             }
@@ -138,7 +215,7 @@
                                 $objCountry = new Country();
                                 $countries = $objCountry->getCountries();
                                 $element = '<label for="'.$input_id.'" class="control-label">'.$placeholder.(($required!='0')?'*':'').'</label><br>';
-                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search...">';
+                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search..." '.((!$enabled)? "disabled":"").'>';
 
                                 foreach ($countries as $country) {
                                     $element .= '<option value="'.$country['id'].'">'.$country['country_name'].'</option>';
@@ -150,7 +227,7 @@
                                 $objHotel = new Hotel();
                                 $hotel_types = $objHotel->getHotelTypes();
                                 $element = '<label for="'.$input_id.'" class="control-label">'.$placeholder.(($required!='0')?'*':'').'</label><br>';
-                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search...">';
+                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search..." '.((!$enabled)? "disabled":"").'>';
 
                                 foreach ($hotel_types as $hotel_type) {
                                     $element .= '<option value="'.$hotel_type['id'].'">'.$hotel_type['description'].'</option>';
@@ -162,7 +239,7 @@
                                 $objHotel = new Hotel();
                                 $hotel_chains = $objHotel->getHotelChains();
                                 $element = '<label for="'.$input_id.'" class="control-label">'.$placeholder.(($required!='0')?'*':'').'</label><br>';
-                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search...">';
+                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search..." '.((!$enabled)? "disabled":"").'>';
 
                                 foreach ($hotel_chains as $hotel_chain) {
                                     $element .= '<option value="'.$hotel_chain['id'].'">'.$hotel_chain['description'].'</option>';
@@ -174,7 +251,7 @@
                                 $objHotel = new Hotel();
                                 $hotel_facilities = $objHotel->getHotelFacilities();
                                 $element = '<label for="'.$input_id.'" class="control-label">'.$placeholder.(($required!='0')?'*':'').'</label><br>';
-                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'[]" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search..." multiple>';
+                                $element .= '<select id="'.$input_id.'" name="'.$input_id.'[]" class="selectpicker form-control" data-live-search="true" title="Please select..." data-size="10" data-live-search-placeholder="Search..." multiple '.((!$enabled)? "disabled":"").'>';
 
                                 foreach ($hotel_facilities as $hotel_facility) {
                                     $element .= '<option value="'.$hotel_facility['id'].'">'.$hotel_facility['facility'].'</option>';
@@ -225,7 +302,8 @@
                                         (($width_class!='0')?'class="form-control '.$width_class.'"':'class="form-control" ').
                                         /* (($placeholder!="")?'placeholder="'.$placeholder.'" ':''). */
                                         (($input_id!="")?'id="'.$input_id.'" name="'.$input_id.'" ':'').
-                                        (($required!='0')?'required':'').
+                                        (($required!='0')?'required ':'').
+                                        ((!$enabled)? "disabled":"").
                                         '></textarea>';                            
 
                             break;

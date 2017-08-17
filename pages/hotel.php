@@ -57,40 +57,13 @@
 
   $hotels = array();
   if(!empty($search_string)) {
-    $hotels = $objHotel->getHotels($search_string);
+    $no_of_hotels = $objHotel->getHotels($search_string, true);
+
+    $pages = new Paginator($no_of_hotels,9,array(15,3,6,9,12,25,50,100,250,'All'));
+    $hotels = $objHotel->getPagedHotels($search_string, $pages->limit_start, $pages->limit_end);
+
+    //$hotels = $objHotel->getHotels($search_string);
   }
-  //echo $hotels
-  //var_dump($hotels);
-
-  /* Image upload handler */
-
-/*   $errors = array();
-  $img_count = 0;
-  if (isset($_FILES)) {
-    
-    $upload_dir = HOTEL_IMG_PATH.'/'.$topic_tmp['img_folder'].'/';
-
-    foreach ($_FILES['img_files']['tmp_name'] as $key => $img) {
-      $filename = $_FILES['img_files']['name'][$key];
-      $filetype = $_FILES['img_files']['type'][$key];
-      $filesize = $_FILES['img_files']['size'][$key];
-      $file_tmp = $_FILES['img_files']['tmp_name'][$key];
-
-
-      if (is_dir($upload_dir)) {
-        if ($filetype == 'image/jpeg' || $filetype == 'image/png' || $filetype == 'image/bmp') {
-          $img_count++;
-        } else {
-          $errors[] = 'File: '.$filename.' is not a valid image file.';
-          unset($_FILES['img_files']['name'][$key]);
-          unset($_FILES['img_files']['type'][$key]);
-          unset($_FILES['img_files']['size'][$key]);
-          unset($_FILES['img_files']['tmp_name'][$key]);
-          unset($_FILES['img_files']['errors'][$key]);
-       }
-      }
-    }
-  } */
 
 ?>
 <div class="container-fluid">
@@ -148,12 +121,22 @@
       </form>
     </div> <!-- .col-md-8 .col-md-offset-2 -->
 
-    <div class="col-md-2 text-left">
-      
-    </div> <!-- .col-md-2 .text-left -->
     <br/><br />
 
     <div class="col-md-10 col-md-offset-1" id="hotel_details_grid">
+
+    <?php 
+            if(empty($hotels)) {
+              $no_of_hotels = $objHotel->getHotels($search_string, true);              
+              $pages = new Paginator($no_of_hotels,9,array(15,3,6,9,12,25,50,100,250,'All'));
+              $hotels = $objHotel->getPagedHotels(null, $pages->limit_start, $pages->limit_end);
+            }    
+    ?>
+      <div class="row">
+        <div class="col-lg-8"><?= $pages->display_pages()?></div>
+        <div class="col-lg-4 text-right"><span class=""><?= $pages->display_jump_menu().$pages->display_items_per_page()?></span></div>
+      </div><br />
+ 
       <table class="table table-condensed table-hover" id="hotel_details_table">
         <thead>
           <tr>
@@ -167,9 +150,7 @@
         <tbody>
           <?php
             //$objHotel = new Hotel();
-            if(empty($hotels)) {
-              $hotels = $objHotel->getHotels();
-            }
+
 
             $actions = '<td class="text-center">                        
                           <button class="btn btn-xs btn-default" id="show-hotel-details" title="Show Details" name="%record_id%"><i class="glyphicon glyphicon-list-alt"></i></button>
@@ -192,7 +173,12 @@
             }
           ?>
         </tbody>
-      </table>
+      </table> 
+
+      <br />
+      <div class="row">
+        <div class="col-lg-8"><?= $pages->display_pages() ?></div>
+      </div> <!-- .row -->
     </div> <!-- .col-md-10 .col-md-offset-1 -->
   </div> <!-- row -->
 </div> <!-- container-fluid -->

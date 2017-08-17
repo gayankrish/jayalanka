@@ -80,9 +80,10 @@
            // error_log('saving new hotel...');
             $reslt = $this->db->insert($this->_table);
             error_log('save result:'.$reslt);
-           if ($reslt) {
+            //error_log("record id: ".$this->db->_id);
+           if ($reslt > 0) {
              //error_log('success - saving new hotel...');
-            return true;
+            return $reslt;
           }
           //error_log('failed - saving new hotel...');
           return false;  
@@ -90,17 +91,47 @@
         return false;
     }
 
-    public function getHotels($cond = null) {
+    public function getHotels($cond = null, $summary = false) {
+
+      if (!$summary) {
+        if (!empty($cond)) {
+          $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1 AND (".$cond.")";
+          return $this->db->fetchAll($sql); 
+          //return $sql;
+        } else {
+          $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1";
+          return $this->db->fetchAll($sql);       
+        }
+      } else {
+        if (!empty($cond)) {
+          $sql = "SELECT COUNT(*) FROM `{$this->_table}` WHERE `status` = 1 AND (".$cond.")";
+          $result = $this->db->fetchOne($sql); 
+          return $result['COUNT(*)'];
+          //return $sql;
+        } else {
+          $sql = "SELECT COUNT(*) FROM `{$this->_table}` WHERE `status` = 1";
+          $result = $this->db->fetchOne($sql); 
+          return $result['COUNT(*)'];      
+        }
+      }
+
+    }
+
+
+    public function getPagedHotels($cond = null, $start = 0, $end = 0) {
+    
+      
       if (!empty($cond)) {
-        $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1 AND (".$cond.")";
+        $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1 AND (".$cond.") ORDER BY `id` DESC LIMIT {$start}, {$end}";
         return $this->db->fetchAll($sql); 
         //return $sql;
       } else {
-        $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1";
+        $sql = "SELECT * FROM `{$this->_table}` WHERE `status` = 1 ORDER BY `id` DESC LIMIT {$start}, {$end}";
         return $this->db->fetchAll($sql);       
       }
 
     }
+      
 
     public function getHotelTypeById($typeid=null) {
       if (!empty($typeid)) {

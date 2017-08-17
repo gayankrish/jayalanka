@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  $("form#hotel_info").submit(function(e){
+    e.preventDefault();
+});
+
 
   $('button[name^="remove_room_type_"]').on('click', function(event) {
       event.preventDefault();
@@ -48,7 +52,7 @@ $(document).ready(function () {
       $('.image-preview').html('');
     }
     handleFileSelect(e); 
-    console.log(e);
+    //console.log(e);
   });
 });
 
@@ -63,6 +67,8 @@ function setUploadButtonStatus() {
   }
 
 }
+
+//
 
   function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
@@ -79,7 +85,7 @@ function setUploadButtonStatus() {
 
       j = i;
       var html = '';
-      html += '<div class="col-md-4">';
+      html += '<div class="col-md-6">';
       html += '<img src="" class="thumbnail img-thumbnail" id="img-thumbnail'+(j+1)+'" name="'+(j+1)+'" onclick="imgClicked(this)">';
       html += '</div>';
 
@@ -100,9 +106,10 @@ function setUploadButtonStatus() {
   };
 
   $('#myModal').on('hidden.bs.modal', function(){
-      //console.log('modal hide');
+
       $('.image-preview').html('');
-      $('.file_uploder').html('');	
+      location.reload();
+      $('.file_uploder').html('');      
       $file_loader = '<label class="btn btn-info" onclick="$(\'#img_uploader\').click();"><i class="glyphicon glyphicon-upload"></i> Add Images</label>';
       $file_loader += '<input type="file" id="img_uploader" name="img_files[]" accept=".jpg,.jpeg,.png" style="display:none;" multiple />';
       $('.file_uploder')
@@ -118,31 +125,6 @@ $('#btnImgUpload').on('click', function(){
 });
 
 
-//Image uploader
-
-function uploadFile(record_id){
-  var input = document.getElementById("file");
-  files = input.files;
-  if(file != undefined){
-    formData= new FormData();
-
-      formData.append("images", files);
-      formData.append("id", record_id);
-      $.ajax({
-        url: "image_upload.php",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(data){
-            alert('success');
-        }
-      });
-
-  }else{
-    alert('Input something!');
-  }
-}
 
 
 /**
@@ -433,21 +415,19 @@ $('#set_room_types').on('click', '#remove_room_type', function(e) {
     data: $("#hotel_info").serialize(),
     success: function(data)
     {
-      if(data) {
-            //window.location.href = "profile.php";
-            console.log('inside success');
-            console.log(data)
-            $('div[id^=save_status]').addClass('alert-success');
-            $('div[id^=save_status]').html('<strong>New hotel saved successfully!</strong>')
-            $('div[id^=save_status]').fadeOut(20000);
+      uploadFiles(data, 'hotel');
+      console.log('inside success');
+      console.log(data);
+      $('div[id^=save_status]').addClass('alert-success');
+      $('div[id^=save_status]').html('<strong>New hotel saved successfully!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);      
 
-      }
-      else { 
-          $('div[id^=save_status]').addClass('alert-danger');
-          $('div[id^=save_status]').html('<strong>Save failed!</strong>')
-          $('div[id^=save_status]').fadeOut(20000);
-        console.log(data)
-      }
+    },
+    error: function (data) {
+      $('div[id^=save_status]').addClass('alert-danger');
+      $('div[id^=save_status]').html('<strong>Save failed!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);
+      console.log(data)
     }
       }); 
 /*    } else {
@@ -455,6 +435,52 @@ $('#set_room_types').on('click', '#remove_room_type', function(e) {
   }  */
   return false;
 });
+
+
+//Image uploader
+
+function uploadFiles(record_id, cat){
+  
+  var input = document.getElementById("img_uploader");
+  console.log(input);
+  //console.log($('form'));
+  files = input.files;
+  if(files != undefined){
+      //console.log($(this)[0]);
+      var formData = new FormData();
+
+      $.each(files, function(i, file) {
+          formData.append('files['+i+']', file);
+      })
+
+      //formData.append("images",files);
+      formData.append("id", record_id);
+      formData.append('category', cat);
+      console.log(formData);
+      $.ajax({
+        url: "modules/image_uploader.php",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data){
+          console.log('success: ');
+            console.log(data);
+            return false;
+        },
+        error: function(error) {
+              console.log('error: ');
+              console.log(error);
+              return false;
+        }
+      });
+
+  }else{
+    alert('Input something!');
+  }
+  return false;
+}
+
 
 /**
  * Save Hotel Form end
