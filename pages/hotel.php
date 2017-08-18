@@ -127,10 +127,10 @@
               foreach ($hotels as $hotel) {
                 $country = $objCountry->getCountryById($hotel['country_id']);
                 echo '<tr>';
-                  echo '<td>'.$hotel['display_name'].'</td>';
-                  echo '<td>'.$hotel['city'].', '.$country['country_name'].'</td>';
-                  echo '<td>'.Helper::formatString($hotel['contact_nos'], 'phone').'</td>';
-                  echo '<td>'.$hotel['rank'].'</td>';
+                  echo '<td id="td-display_name" name="'.$hotel['id'].'">'.$hotel['display_name'].'</td>';
+                  echo '<td id="td-location" name="'.$hotel['id'].'">'.$hotel['city'].', '.$country['country_name'].'</td>';
+                  echo '<td id="td-contact_nos" name="'.$hotel['id'].'">'.Helper::formatString($hotel['contact_nos'], 'phone').'</td>';
+                  echo '<td id="td-rank" name="'.$hotel['id'].'">'.$hotel['rank'].'</td>';
                   echo str_replace('%record_id%', $hotel['id'], $actions);
                 echo '</tr>';
               }
@@ -148,9 +148,12 @@
 </div> <!-- container-fluid -->
 
 <!-- Main Modal - Start-->
+
+<div class="main-modal">
+</div>
 <?php 
 
-$modal_title = "Add New Hotel";
+/* $modal_title = "Add New Hotel";
 //$tab1_title
 //$tab2_title
 $main_table = 'hotel';
@@ -160,9 +163,9 @@ $image_upload_required = true;
 $map_required = true;
 $close_button_required = true;
 $edit_button_required = false;
-$save_button_required = true;
+$save_button_required = true; */
 
-require_once('_modal.php');
+//require_once('_modal.php');
 ?>
 <!-- Main Modal - End -->
 

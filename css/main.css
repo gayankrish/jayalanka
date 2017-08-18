@@ -350,3 +350,8 @@ h1.pageheader {
   border-radius: 4px;
 }
 /* Paginator select formatting - end */
+
+div.avail_facility {
+  background-color: #ffffff;
+  border: 1px solid #cecece;
+}

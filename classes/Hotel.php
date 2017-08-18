@@ -176,10 +176,20 @@
 
     }
 
+    public function getHotelFacilityById($facility_id) {
+    $sql = "SELECT * FROM `{$this->_hotel_facilities_table}` WHERE `id`={$facility_id}";
+      return $this->db->fetchOne($sql);      
+    }
+
     public function getRoomTypes() {
       $sql = "SELECT * FROM `{$this->_room_type_table}`";
       return $this->db->fetchAll($sql);
     }
+
+    public function getRoomTypeById($id) {
+    $sql = "SELECT * FROM `{$this->_room_type_table}` WHERE `id`={$id}";
+      return $this->db->fetchOne($sql);
+    }    
 
   }
 ?>
