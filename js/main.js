@@ -1,22 +1,13 @@
 $(document).ready(function () {
 
-  $("form#hotel_info").submit(function(e){
+  $("form#supplier_info").submit(function(e){
     e.preventDefault();
 });
 
 
   $('button[name^="remove_room_type_"]').on('click', function(event) {
       event.preventDefault();
-
-/*      $("form[name='hotel_info']").on("submit", function(e){
-        e.preventDefault();
-    }); */ 
-
-  //event.preventPropagation();
   console.log(event)
-  //console.log("test")
-/*   indexid = event.target.name.substring();
-  console.log('clicked: remove button '+) */
   return false;
 });
 
@@ -520,11 +511,11 @@ function uploadFiles(record_id, cat){
  * Hotel form validation end
  */
 
- $(document).on('click', '#show-hotel-details', function () {
+ $(document).on('click', '#show-supplier-details', function () {
 
   var url = 'modules/_modal.php';
   //var url = 'modules/test.php';
-  var hotel_id = $(this)[0].name;
+  var id = $(this)[0].name;
   var hotel_name = $('td[id="td-display_name"][name="'+hotel_id+'"]').html();
   
   console.log(hotel_name);
@@ -532,7 +523,7 @@ function uploadFiles(record_id, cat){
   const data = {modal_title:"Hotel: "+hotel_name,
                 main_table:'hotel',
                 mode:'view',
-                record_id:hotel_id,
+                record_id:id,
                 image_upload_required:false,
                 map_required:false,
                 close_button_required:true,

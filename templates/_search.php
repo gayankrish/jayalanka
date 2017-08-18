@@ -1,7 +1,9 @@
 <?php
 
+
+
     if (!isset($search_placeholder)) {
-        $search_placeholder = 'Search for hotels...';
+        $search_placeholder = 'Search for '.$search_options['name'].'...';
     }
 
     echo '<form action="" method="post" class="form-horizontal" role="form">';

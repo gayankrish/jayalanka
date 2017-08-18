@@ -87,7 +87,7 @@ if ($objForm->isPost('btn-logout')) {
                   echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$parentmenuitem['description'].' <span class="caret"></span></a>';
                   echo '<ul class="dropdown-menu">';
                   foreach ($childmenuitems as $childmenuitem) {
-                    echo '<li><a href="'.SITE_URL.'/?page='.$childmenuitem['short_name'].'">'.$childmenuitem['description'].'</a></li>';
+                    echo '<li><a href="'.SITE_URL.'/?page=supplier&supplier='.$childmenuitem['short_name'].'">'.$childmenuitem['description'].'</a></li>';
                   }
                   echo '</ul>';
                   echo '</li>';
