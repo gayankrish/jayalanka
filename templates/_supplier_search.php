@@ -1,7 +1,9 @@
 <?php
 
+
+
     if (!isset($search_placeholder)) {
-        $search_placeholder = 'Search for hotels...';
+        $search_placeholder = 'Search for '.$search_options['name'].'...';
     }
 
     echo '<form action="" method="post" class="form-horizontal" role="form">';
@@ -17,9 +19,9 @@
                     echo '<label for="filter">Filter by</label>';
                     echo '<div class="form-inline">';
 
-                    if(!empty($filter_options)) {
+                    if(!empty($filter_options[$supplier])) {
                         
-                        foreach ($filter_options as $filter_option) {
+                        foreach ($filter_options[$supplier] as $filter_option) {
 
                                 echo '<div class="checkbox">';
                                     echo '<label for="'.$filter_option['id'].'">';
@@ -39,7 +41,7 @@
               echo '</div> <!-- .dropdown-menu .dropdown-menu-right -->';
               echo '<!-- Dropdow menu end -->';
             echo '</div> <!-- dropdown dropdown-lg -->';
-            echo '<button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+            echo '<button type="submit" class="btn btn-primary btn-sm" name="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
             
           echo '</div> <!-- .btn-group -->';
         echo '</div> <!-- .input-group-btn -->';
