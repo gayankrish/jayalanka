@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+<<<<<<< HEAD
   $('div#save_status').fadeOut(20000);   
 
 
@@ -94,6 +95,9 @@ $( "#edit_save" ).unbind( "click" )
     });
 
 $("form#supplier_info").submit(function(e){
+=======
+  $("form#supplier_info").submit(function(e){
+>>>>>>> 5a70be98afc8ed46b81122c60a7e9cc0e04e9d5c
     e.preventDefault();
 });
 
