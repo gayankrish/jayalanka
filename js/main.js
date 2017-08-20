@@ -1,22 +1,110 @@
 $(document).ready(function () {
 
-  $("form#hotel_info").submit(function(e){
+<<<<<<< HEAD
+  $('div#save_status').fadeOut(20000);   
+
+
+  // update supplier
+$( "#edit_save" ).unbind( "click" )
+ $('#edit_save').click(function(){
+  //console.log($("#hotel_info"));
+  var url = "modules/update_supplier.php";
+   /* if($('#hotel_info').valid()){  */
+    console.log("validation ok");
+    //console.log($('#hotel_info').serialize());
+     //$('#logerror').html('<img src="ajax.gif" align="absmiddle"> Please wait...');
+    var id = $(this).attr('data-id');
+    var supplier = $(this).attr('data-supplier');
+    $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#form_edit_supplier").serialize() + '&supplier=' + supplier + '&id='+id,
+    success: function(data)
+    {
+      console.log(data);
+      
+      window.location.href = 'http://localhost/jayalanka'+'/?page=view_supplier&supplier='+supplier+'&name='+$('.supplier_name').html()+'&id='+id+'&status=success';
+/*       uploadFiles(data, 'hotel');
+      console.log('inside success');
+      console.log(data); */
+      $('div[id^=save_status]').addClass('alert-success');
+      $('div[id^=save_status]').html('<strong>Successfully saved!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);      
+
+    },
+    error: function (data) {
+      $('div[id^=save_status]').addClass('alert-danger');
+      $('div[id^=save_status]').html('<strong>Save failed!</strong>')
+      $('div[id^=save_status]').fadeOut(20000);
+      console.log(data)
+    }
+      }); 
+/*    } else {
+    console.log("validation failed");
+  }  */
+  return false;
+});
+
+  $('.delete-supplier').click(function() {
+    $('#modal_supplier_name').val($(this).attr('data-supplier-name'));
+    $('#modal_supplier').val($(this).attr('data-supplier'));
+    $('#modal_supplier_id').val($(this).attr('name'));
+
+    $('span.supplier-name').html($(this).attr('data-supplier-name'));
+  });
+
+  // to prevent button click
+  $( ".delete-confirm" ).unbind( "click" );
+
+  $('.delete-confirm').click(function() {
+
+    supplier = $('#modal_supplier').val();
+    id = $('#modal_supplier_id').val();
+    //console.log('delete confirmed\n supplier:'+supplier+'\nid:'+id);
+
+
+
+    const data = {
+      supplier: supplier,
+      id:id
+    }
+
+      var url = 'modules/delete_supplier.php'
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(data)
+        {
+          console.log(data);
+          if(data==1) {
+                //window.location.href = "profile.php";
+                location.reload();
+                //console.log('page reloaded');
+          }
+
+        },
+        error: function (err) {
+          console.log(err);
+        }
+
+      
+          });      
+      
+    });
+
+$("form#supplier_info").submit(function(e){
+=======
+  $("form#supplier_info").submit(function(e){
+>>>>>>> 5a70be98afc8ed46b81122c60a7e9cc0e04e9d5c
     e.preventDefault();
 });
 
 
   $('button[name^="remove_room_type_"]').on('click', function(event) {
       event.preventDefault();
-
-/*      $("form[name='hotel_info']").on("submit", function(e){
-        e.preventDefault();
-    }); */ 
-
-  //event.preventPropagation();
   console.log(event)
-  //console.log("test")
-/*   indexid = event.target.name.substring();
-  console.log('clicked: remove button '+) */
   return false;
 });
 
@@ -520,11 +608,11 @@ function uploadFiles(record_id, cat){
  * Hotel form validation end
  */
 
- $(document).on('click', '#show-hotel-details', function () {
+ $(document).on('click', '#show-supplier-details', function () {
 
   var url = 'modules/_modal.php';
   //var url = 'modules/test.php';
-  var hotel_id = $(this)[0].name;
+  var id = $(this)[0].name;
   var hotel_name = $('td[id="td-display_name"][name="'+hotel_id+'"]').html();
   
   console.log(hotel_name);
@@ -532,7 +620,7 @@ function uploadFiles(record_id, cat){
   const data = {modal_title:"Hotel: "+hotel_name,
                 main_table:'hotel',
                 mode:'view',
-                record_id:hotel_id,
+                record_id:id,
                 image_upload_required:false,
                 map_required:false,
                 close_button_required:true,
@@ -559,3 +647,14 @@ function uploadFiles(record_id, cat){
   });
 
  });
+
+
+
+
+
+
+
+function goBack() {
+  window.history.back();
+}
+

@@ -1,14 +1,14 @@
 <?php
   require_once('_header.php');
 
-  $objHotel = new Hotel();
+  $objVehicle = new Vehicle();
   $objForm = new Form();
   //$requestType = 'blank';
    Url::getAll();
   $params = Url::$_params;
   //$requestType = $objForum->getRequestType($params);
 
-  !empty($params['id']) ? $hotelId = $params['id'] : $hotelId = '';
+  !empty($params['id']) ? $vehicleid = $params['id'] : $vehicleid = '';
 
   $search_string = '';
   $search_placeholder = null;
@@ -21,15 +21,15 @@
       if(strpos($key, 'chkbx-') !== FALSE) {
 
         switch ($key) {
-          case 'chkbx-available_facilities':
+          case 'chkbx-model':
             
-              $tmp_search_str = "`facility` LIKE '%".$search_query."%'";
-              $search_facilities = $objHotel->getHotelFacilities($tmp_search_str);
+              $tmp_search_str = "`model` LIKE '%".$search_query."%'";
+              $search_models = $objVehicle->getVehicleModels($tmp_search_str);
 
-              if(!empty($search_facilities)) { // records found in facility table
+              if(!empty($search_models)) { // records found in facility table
                 $tmp_str = '';
-                foreach ($search_facilities as $search_facility) {
-                  $tmp_str .= $search_facility['id'].',';
+                foreach ($search_models as $search_model) {
+                  $tmp_str .= $search_model['id'].',';
                 }
                 $tmp_str = substr($tmp_str, 0, strlen($tmp_str)-1); 
                 $search_string .= "`".$value . "` LIKE '%" . $tmp_str . "%' OR ";
@@ -40,6 +40,26 @@
               }
 
             break;
+
+            case 'chkbx-type':
+            
+              $tmp_search_str = "`type` LIKE '%".$search_query."%'";
+              $search_types = $objVehicle->getVehicleTypes($tmp_search_str);
+
+              if(!empty($search_types)) { // records found in facility table
+                $tmp_str = '';
+                foreach ($search_types as $search_type) {
+                  $tmp_str .= $search_type['id'].',';
+                }
+                $tmp_str = substr($tmp_str, 0, strlen($tmp_str)-1); 
+                $search_string .= "`".$value . "` LIKE '%" . $tmp_str . "%' OR ";
+                continue;
+              } else { // no records found in facility table
+                $search_string .= "`".$value . "` LIKE '%" . $search_query . "%' OR ";
+                continue;
+              }
+
+            break;            
           
           default:
             # code...
@@ -57,14 +77,14 @@
     echo '$_GET';
   } */
 
-  $hotels = array();
+  $vehicles = array();
   if(!empty($search_string)) {
-    $no_of_hotels = $objHotel->getHotels($search_string, true);
+    $no_of_vehicles = $objVehicle->getVehicles($search_string, true);
 
-    $pages = new Paginator($no_of_hotels,9,array(15,3,6,9,12,25,50,100,250,'All'));
-    $hotels = $objHotel->getPagedHotels($search_string, $pages->limit_start, $pages->limit_end);
+    $pages = new Paginator($no_of_vehicles,9,array(15,3,6,9,12,25,50,100,250,'All'));
+    $vehicles = $objHotel->getPagedVehicles($search_string, $pages->limit_start, $pages->limit_end);
 
-    //$hotels = $objHotel->getHotels($search_string);
+;
   }
 
 ?>
@@ -72,14 +92,14 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-1 pull-left">
     <span>
-      <h1 class="pageheader">Hotels</h1><button class="btn btn-success btn-xs pull-right" id="add-new-hotel" title="Add new hotel" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-plus"></i> Add New Hotel</button>
+      <h1 class="pageheader">Vehicles</h1><button class="btn btn-success btn-xs pull-right" id="add-new-vehicle" title="Add new vehicle" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-plus"></i> Add New Vehicle</button>
     </span><hr>
     <?php 
       $filter_options = array(
-                      ['id'=>'chkbx-display_name', 'value'=>'display_name', 'text'=>' Name &nbsp;'],
-                      ['id'=>'chkbx-location', 'value'=>'location', 'text'=>' Location &nbsp;'],
-                      ['id'=>'chkbx-rank', 'value'=>'rank', 'text'=>' Rating &nbsp;'],
-                      ['id'=>'chkbx-available_facilities', 'value'=>'available_facilities', 'text'=>' Facilities &nbsp;']
+                      ['id'=>'chkbx-model', 'value'=>'model', 'text'=>' Model &nbsp;'],
+                      ['id'=>'chkbx-type', 'value'=>'type', 'text'=>' Type &nbsp;'],
+                      ['id'=>'chkbx-owner_name', 'value'=>'owner_name', 'text'=>' Owner Name &nbsp;'],
+                      ['id'=>'chkbx-seating_capacity', 'value'=>'seating_capacity', 'text'=>' Seating Capacity &nbsp;']
                   );    
       require_once('_search.php'); 
       ?>
@@ -90,36 +110,29 @@
     <div class="col-md-10 col-md-offset-1" id="hotel_details_grid">
 
     <?php 
-            if(empty($hotels)) {
-              $no_of_hotels = $objHotel->getHotels($search_string, true);              
-              $pages = new Paginator($no_of_hotels,9,array(15,3,6,9,12,25,50,100,250,'All'));
-              $hotels = $objHotel->getPagedHotels(null, $pages->limit_start, $pages->limit_end);
+            if(empty($vehicles)) {
+              $no_of_vehicles = $objHotel->getHotels($search_string, true);              
+              $pages = new Paginator($no_of_vehicles,9,array(15,3,6,9,12,25,50,100,250,'All'));
+              $vehicles = $objVehicle->getPagedVehicles(null, $pages->limit_start, $pages->limit_end);
             }    
     ?>
       <div class="row">
         <div class="col-lg-8"><?= $pages->display_pages()?></div>
         <div class="col-lg-4 text-right"><span class=""><?= $pages->display_jump_menu().$pages->display_items_per_page()?></span></div>
       </div><br />
-      <div class="row">
-            <div class="col-lg-10 col-md-offset-1">
-              <table class="table table-condensed table-hover" id="hotel_details_table">
-                <thead>
-                  <tr>
-                    <th>Hotel Name</th>
-                    <th>Location</th>
-                    <th>Contact Nos.</th>
-                    <th>Rating</th>
-                    <th class="text-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-              </table>            
-            </div>
-      </div>
-      </div>
-
+ 
+      <table class="table table-condensed table-hover" id="vehicle_details_table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Seating Capacity</th>
+            <th>Owner Name</th>
+            <th>Contact Nos.</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           <?php
             //$objHotel = new Hotel();
 

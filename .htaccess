@@ -1,5 +1,10 @@
+#RewriteEngine On
 # Do not remove this line, otherwise mod_rewrite rules will stop working
-RewriteBase /
+#RewriteBase /jayalanka
+
+
+#RewriteRule ^supplier/([a-z]+) /jayalanka/?page=supplier&supplier=$1 [NC, L]
+#RewriteRule ^view_supplier/([a-z]+)/([a-z]+)/([0-9]+) /jayalanka/?page=view_supplier&supplier=$1 [NC, L]
 
 <ifModule mod_deflate.c>
 <Files *.html>

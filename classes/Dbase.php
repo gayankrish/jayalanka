@@ -59,7 +59,9 @@
       $this->result = mysqli_query($this->_conndb, $sql);
            // $this->close();
       $this->displayQuery(/*$this->result*/);
-      
+/*         error_log('query result: ');
+        error_log($this->result); */
+        //var_dump($this->result);
       return $this->result;
     }
 
@@ -157,6 +159,11 @@
         //return $sql;
         //$this->close();
       } 
+    }
+
+
+    public function delete($sql) {
+      return $this->query($sql);
     }
 
   } // End class

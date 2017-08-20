@@ -1,18 +1,18 @@
 <?php
-  class Hotel extends Application {
+  class Vehicle extends Application {
 
-    private $_table = 'hotel';
-    private $_type_table = 'hotel_type';
+    private $_table = 'vehicle';
+    private $_vehicle_type_table = 'vehicle_type';
     private $_chain_table = 'chain_type';
-    private $_hotel_facilities_table = 'hotel_facility';
-    private $_room_type_table = 'room_type';
+    private $_vehicle_make_table = 'vehicle_make';
+    private $_vehicle_model_table = 'vehicle_model';
 
 
     /**
-    * Add new hotel
+    * Add new Vehicle
     */
 
-    public function addHotel($params = null) {
+    public function addVehicle($params = null) {
       if(!empty($params)) {
         $room_details = '{';
         $remove_keys = array();
@@ -77,50 +77,21 @@
 
 
            $this->db->prepareInsert($params);
-           // error_log('saving new hotel...');
+           // error_log('saving new Vehicle...');
             $reslt = $this->db->insert($this->_table);
             error_log('save result:'.$reslt);
             //error_log("record id: ".$this->db->_id);
            if ($reslt > 0) {
-             //error_log('success - saving new hotel...');
+             //error_log('success - saving new Vehicle...');
             return $reslt;
           }
-          //error_log('failed - saving new hotel...');
+          //error_log('failed - saving new Vehicle...');
           return false;  
         }
         return false;
     }
 
-    public function updateHotel($id = null, $params = null) {
-
-      if (!empty($id) && !empty($params)) {
-
-        $hotel_type = $this->getHotelTypeById($params['hotel_type']);
-        $params['hotel_type'] = $hotel_type['description'];
-
-        $hotel_chain = $this->getHotelChainById($params['hotel_chain']);
-        $params['hotel_chain'] = $hotel_chain['description'];
-
-        $objCountry = new Country();
-        $country = $objCountry->getCountryById($params['country']);
-        $params['country'] = $country['country_name'];
-
-        $this->db->prepareUpdate($params);
-
-        return $this->db->update($this->_table, $id);
-      }
-    }
-
-    public function deleteHotel($id = null) {
-
-      if (!empty($id)) {
-        $sql = "DELETE FROM `{$this->_table}` WHERE `id`={$id}";
-        return $this->db->delete($sql);
-      }
-
-    }
-
-    public function getHotels($cond = null, $summary = false) {
+    public function getVehicles($cond = null, $summary = false) {
 
       if (!$summary) {
         if (!empty($cond)) {
@@ -147,7 +118,7 @@
     }
 
 
-    public function getPagedHotels($cond = null, $start = 0, $end = 0) {
+    public function getPagedVehicles($cond = null, $start = 0, $end = 0) {
     
       
       if (!empty($cond)) {
@@ -161,7 +132,7 @@
 
     }
 
-    public function getHotelById($id) {
+    public function getVehicleById($id) {
       if (!empty($id)) {
         $sql = "SELECT * FROM `{$this->_table}` WHERE `id`={$id}";
         return $this->db->fetchOne($sql);
@@ -169,56 +140,59 @@
     }
       
 
-    public function getHotelTypeById($typeid=null) {
+    public function getVehicleTypeById($typeid=null) {
       if (!empty($typeid)) {
-        $sql = "SELECT * FROM `{$this->_type_table}` WHERE `id`={$typeid}";
+        $sql = "SELECT * FROM `{$this->_vehicle_type_table}` WHERE `id`={$typeid}";
         return $this->db->fetchOne($sql);
       }
     }
 
-    public function getHotelChainById($chainid=null) {
+    public function getVehicleChainById($chainid=null) {
       if (!empty($chainid)) {
-        $sql = "SELECT * FROM `{$this->_chain_table}` WHERE `chain_type`='hotel' AND `id`={$chainid}";
+        $sql = "SELECT * FROM `{$this->_chain_table}` WHERE `chain_type`='vehicle' AND `id`={$chainid}";
         return $this->db->fetchOne($sql);
       }
     }
 
-    public function getHotelTypes() {
-      $sql = "SELECT * FROM `{$this->_type_table}`";
-      return $this->db->fetchAll($sql);
-    }
-
-    public function getHotelChains() {
-      $sql = "SELECT * FROM `{$this->_chain_table}` WHERE `chain_type`='hotel'";
-      return $this->db->fetchAll($sql);
-    }
-
-    public function getHotelFacilities($cond = null) {
-
+    public function getVehicleTypes($cond) {
       if(!empty($cond)) {
-        $sql = "SELECT * FROM `{$this->_hotel_facilities_table}` WHERE ". $cond;
+        $sql = "SELECT * FROM `{$this->_vehicle_type_table}` WHERE ". $cond;
         return $this->db->fetchAll($sql);
       } else {        
-        $sql = "SELECT * FROM `{$this->_hotel_facilities_table}`";
+        $sql = "SELECT * FROM `{$this->_vehicle_type_table}`";
         return $this->db->fetchAll($sql);
       }
-
     }
 
-    public function getHotelFacilityById($facility_id) {
-    $sql = "SELECT * FROM `{$this->_hotel_facilities_table}` WHERE `id`={$facility_id}";
-      return $this->db->fetchOne($sql);      
-    }
-
-    public function getRoomTypes() {
-      $sql = "SELECT * FROM `{$this->_room_type_table}`";
+    public function getVehicleChains() {
+      $sql = "SELECT * FROM `{$this->_chain_table}` WHERE `chain_type`='vehicle'";
       return $this->db->fetchAll($sql);
     }
 
-    public function getRoomTypeById($id) {
-    $sql = "SELECT * FROM `{$this->_room_type_table}` WHERE `id`={$id}";
-      return $this->db->fetchOne($sql);
-    }    
+    public function getVehicleMakes() {
+      $sql = "SELECT * FROM `{$this->_vehicle_make_table}`";
+      return $this->db->fetchAll($sql);
+    }
+
+    public function getVehicleMakeById($id) {
+    $sql = "SELECT * FROM `{$this->_vehicle_make_table}` WHERE `id`={$id}";
+      return $this->db->fetchAll($sql);
+    }
+
+    public function getVehicleModels($cond) {
+      if(!empty($cond)) {
+        $sql = "SELECT * FROM `{$this->_vehicle_model_table}` WHERE ". $cond;
+        return $this->db->fetchAll($sql);
+      } else {        
+        $sql = "SELECT * FROM `{$this->_vehicle_model_table}`";
+        return $this->db->fetchAll($sql);
+      }
+    }
+
+    public function getVehicleModelById($id) {
+    $sql = "SELECT * FROM `{$this->_vehicle_model_table}` WHERE `id`={$id}";
+      return $this->db->fetchAll($sql);
+    }
 
   }
 ?>
