@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 10383c33ab6fd2e043636cd35e9fe7a16f4dadeb
 require_once('_header.php');
 Url::getAll();
 $params = Url::$_params;
@@ -107,5 +111,27 @@ require_once('supplier_search_handler.php');
 
   </div> <!-- .row -->
 </div> <!-- .container-fluid -->
+<<<<<<< HEAD
+=======
+=======
+  require_once('_header.php');
+
+  Url::getAll();
+  $params = Url::$_params;
+
+  $supplier = $params['supplier'];
+
+  $arr_classes = array('hotel'=>'Hotel', 'guide'=>'Guide', 
+                       'vehicle'=>'Vehicle', 'restaurant'=>'Restaurant',
+                       'shop'=>'Shop', 'activity_providers' => 'ActivityProvider');
+
+  $objSupplier = new $arr_classes($supplier);
+  $objForm = new Form();
+
+  
+
+?>
+>>>>>>> 5a70be98afc8ed46b81122c60a7e9cc0e04e9d5c
+>>>>>>> 10383c33ab6fd2e043636cd35e9fe7a16f4dadeb
 
 <?php   require_once('_footer.php'); ?>

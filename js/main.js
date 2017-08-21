@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 10383c33ab6fd2e043636cd35e9fe7a16f4dadeb
   $('div#save_status').fadeOut(20000);   
 
 
@@ -94,6 +98,12 @@ $( "#edit_save" ).unbind( "click" )
     });
 
 $("form#supplier_info").submit(function(e){
+<<<<<<< HEAD
+=======
+=======
+  $("form#supplier_info").submit(function(e){
+>>>>>>> 5a70be98afc8ed46b81122c60a7e9cc0e04e9d5c
+>>>>>>> 10383c33ab6fd2e043636cd35e9fe7a16f4dadeb
     e.preventDefault();
 });
 
