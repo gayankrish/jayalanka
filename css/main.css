@@ -1,5 +1,5 @@
 
-
+html { margin-bottom: 65px }
 /* .modal-dialog {
   width: 380px;
   margin-top: 15%;
@@ -297,6 +297,17 @@ ul.gal li img {
 
 .img-modal {width:600px;}
 .thumbnail {margin-bottom:6px;}
+
+
+#imgViewModal>.modal-dialog {
+  margin-top: 100px;
+}
+
+
+#delete-supplier-modal>.modal-dialog {
+  margin-top: 100px;
+}
+
 /* Gallery test */
 
 
@@ -354,4 +365,26 @@ h1.pageheader {
 div.avail_facility {
   background-color: #ffffff;
   border: 1px solid #cecece;
+}
+
+footer {
+
+  position:fixed;
+  bottom:0;
+
+/*   position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center; */
+}
+
+div.btn-group.bootstrap-select.form-control {
+  padding-left: 15px;
+}
+
+div.bootstrap-select {
+  padding-left: 15px;
 }

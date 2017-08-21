@@ -39,9 +39,6 @@ if ($objForm->isPost('btn-logout')) {
    <!-- Star rating CSS -->
   <link href="css/jquery.rateyo.min.css" media="all" rel="stylesheet" type="text/css" />
 
-
-
-
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
@@ -50,6 +47,8 @@ if ($objForm->isPost('btn-logout')) {
   <script src="js/jquery.validate.min.js"></script>
   <!-- Star rating -->
   <script src="js/jquery.rateyo.min.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
 <!-- 
   <script src="js/jquery.timeago.js" type="text/javascript"></script>
   <script src="js/moment.min.js" type="text/javascript"></script> -->
@@ -87,7 +86,7 @@ if ($objForm->isPost('btn-logout')) {
                   echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$parentmenuitem['description'].' <span class="caret"></span></a>';
                   echo '<ul class="dropdown-menu">';
                   foreach ($childmenuitems as $childmenuitem) {
-                    echo '<li><a href="'.SITE_URL.'/?page='.$childmenuitem['short_name'].'">'.$childmenuitem['description'].'</a></li>';
+                    echo '<li><a href="'.SITE_URL.'/?page=supplier&supplier='.$childmenuitem['short_name'].'">'.$childmenuitem['description'].'</a></li>';
                   }
                   echo '</ul>';
                   echo '</li>';
